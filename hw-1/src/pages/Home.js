@@ -1,6 +1,6 @@
 const Home = () => {
-    return (
-        <p>We provide you with the best service</p>
+    return ( 
+        <p align="center">We provide you with the best service</p>
     );
 };
 
