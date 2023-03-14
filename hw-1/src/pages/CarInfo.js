@@ -7,11 +7,14 @@ const car = [
 ];
 
 const CarItem = ({car}) => (
-    <div>
-        <span>
-            [{car.id}]{" | "} {car.name} {" | "}{car.price} {" | "}{car.feature}{" "}
-        </span>
-    </div>
+    <>
+        <tr>
+            <td>{car.id}</td>&nbsp;&nbsp;
+            <td>{car.name}</td>&nbsp;&nbsp;
+            <td>{car.price}</td>&nbsp;&nbsp;
+            <td>{car.feature}</td>&nbsp;&nbsp;
+        </tr>
+    </>
 );
 
 const CarInfo = () => {
