@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import styled from "styled-components";
 import {inputUser, inputEmail, inputPassword, inputConfirmPassword, onClick} from '../modules/userSlice';
+import Popup from './Popup';
 
 const Layout = styled.div`
 margin-top: 10px;
@@ -15,6 +16,7 @@ const User = (props) => {
     const password = useSelector(state=>state.password);
     const confirmPassword = useSelector(state=>state.confirmPassword);
     const isClick = useSelector(state=>state.isClick);
+    const [popup, setPopup] = useState({open: false, title: "", message: "", callback: false});
     const dispatch = useDispatch();
 
 
@@ -33,33 +35,46 @@ const User = (props) => {
     const handleOnBtClick = (e) => {
         dispatch(onClick());
     }
+    const onSubmit = (e) => {
+        if(password!=confirmPassword){
+            setPopup({
+                open: true,
+                title: "Error",
+                message: "Please make sure all fields are filled in correctly."
+            });
+            return;
+            }
+        else{
+            setPopup({
+                open: true,
+                title: "Welcome!",
+                message: "Now you are our client!"
+            });
+            return;
+        }
+    }
     
     return (
         <Layout>
+            <Popup open = {popup.open} setPopup = {setPopup} message = {popup.message} title = {popup.title} callback = {popup.callback}/>
             <h1>Register</h1>
             <h2> WELCOME </h2>
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME: </b>
-            <input type="text" value={username}
+            <input type="text" value={username} placeholder='NAME'
             onChange = {handleOnUser}/>
             <br/>
-            <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EMAIL: </b>
-            <input type="text" value={email}
+            <input type="text" value={email} placeholder='EMAIL'
             onChange = {handleOnEmail}/>
             <br/>
-            <b>PASSWORD: </b>
-            <input type="text" value={password}
+            <input type="password" value={password} placeholder='PASSWORD'
             onChange = {handleOnPassword}/>
             <br/>
-            <b>&nbsp;&nbsp;&nbsp;CONFIRM: </b>
-            <input type="text" value={confirmPassword}
+            <input type="password" value={confirmPassword} placeholder='CONFIRM PASSWORD'
             onChange = {handleOnConfirmPassword}/>
             <br/>
             <br/>
-            <button onClick = {handleOnBtClick}
+            <button onClick = {onSubmit}
             value = "onClick"> Register </button>
             <br/>
-            {isClick && <label> {username} </label>}
-            {!(isClick) && <label> {email} </label>}
         </Layout>
     );
 }

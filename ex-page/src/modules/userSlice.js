@@ -23,7 +23,7 @@ const userSlice = createSlice({
             state.email = action.payload;
         },
         inputPassword: (state, action) =>{
-            state.email = action.payload;
+            state.password = action.payload;
         },
         inputConfirmPassword: (state, action) =>{
             state.confirmPassword = action.payload;
